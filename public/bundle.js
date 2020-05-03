@@ -57,40 +57,13 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _propTypes = __webpack_require__(/*! prop-types */ 17);
+	var _App = __webpack_require__(/*! ./components/App */ 24);
 	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
+	var _App2 = _interopRequireDefault(_App);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Header = function Header(_ref) {
-	    var msg = _ref.msg;
-	
-	    return _react2.default.createElement(
-	        'h2',
-	        { className: 'Header text-center' },
-	        msg
-	    );
-	};
-	
-	Header.propTypes = {
-	    msg: _propTypes2.default.string
-	};
-	
-	var App = function App() {
-	    return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(Header, { msg: 'Naming Contests' }),
-	        _react2.default.createElement(
-	            'div',
-	            null,
-	            '....'
-	        )
-	    );
-	};
-	
-	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('root'));
+	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ }),
 /* 1 */
@@ -11889,6 +11862,83 @@
 	
 	  return ReactPropTypes;
 	};
+
+/***/ }),
+/* 23 */
+/*!**********************************!*\
+  !*** ./src/components/Header.js ***!
+  \**********************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 17);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Header = function Header(_ref) {
+	    var msg = _ref.msg;
+	
+	    return _react2.default.createElement(
+	        'h2',
+	        { className: 'Header text-center' },
+	        msg
+	    );
+	};
+	
+	Header.propTypes = {
+	    msg: _propTypes2.default.string
+	};
+	
+	exports.default = Header;
+
+/***/ }),
+/* 24 */
+/*!*******************************!*\
+  !*** ./src/components/App.js ***!
+  \*******************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _Header = __webpack_require__(/*! ./Header */ 23);
+	
+	var _Header2 = _interopRequireDefault(_Header);
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var App = function App() {
+	    return _react2.default.createElement(
+	        "div",
+	        { className: "App" },
+	        _react2.default.createElement(_Header2.default, { msg: "Naming Contests" }),
+	        _react2.default.createElement(
+	            "div",
+	            null,
+	            "...."
+	        )
+	    );
+	};
+	
+	exports.default = App;
 
 /***/ })
 /******/ ]);

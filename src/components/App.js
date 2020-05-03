@@ -2,6 +2,7 @@ import Header from "./Header";
 import React from 'react';
 import ContestPreview from './ContestPreview';
 import data from '../testData.json'
+import axios from 'axios';
 
 class App extends React.Component{
     // constructor(props){
@@ -13,9 +14,16 @@ class App extends React.Component{
         contests:[]
     };
     componentDidMount(){
-        this.setState({
-            contests: data.contests
-        });
+        //do ajax call
+        axios.get('/api/contests')
+            .then(resp => {
+                // console.log(resp.data.contests);
+                this.setState({
+                    contests: resp.data.contests
+                });
+            })
+            .catch(console.error)
+       
     }
     // componentWillUnmount
 

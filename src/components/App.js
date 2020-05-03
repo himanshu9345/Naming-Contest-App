@@ -1,6 +1,6 @@
 import Header from "./Header";
 import React from 'react';
-
+import ContestPreview from './ContestPreview';
 
 
 class App extends React.Component{
@@ -10,16 +10,19 @@ class App extends React.Component{
     // }
     state = {
         pageHeader: 'Naming Contests'
-    }
+    };
     // componentDidMount
     // componentWillUnmount
+
     render(){
 
         return(
             <div className="App">
-            <Header msg={this.state.pageHeader}/>
+            <Header msg={this.state.pageHeader} />
             <div>
-                ....
+                {this.props.contests.map(contest =>
+                <ContestPreview {...contest} /> 
+                )}
             </div>
             </div>
         );

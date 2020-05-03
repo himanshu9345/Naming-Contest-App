@@ -1,7 +1,7 @@
 import Header from "./Header";
 import React from 'react';
 import ContestPreview from './ContestPreview';
-
+import data from '../testData.json'
 
 class App extends React.Component{
     // constructor(props){
@@ -9,9 +9,14 @@ class App extends React.Component{
     //     this.state={test:45}
     // }
     state = {
-        pageHeader: 'Naming Contests'
+        pageHeader: 'Naming Contests',
+        contests:[]
     };
-    // componentDidMount
+    componentDidMount(){
+        this.setState({
+            contests: data.contests
+        });
+    }
     // componentWillUnmount
 
     render(){
@@ -20,8 +25,8 @@ class App extends React.Component{
             <div className="App">
             <Header msg={this.state.pageHeader} />
             <div>
-                {this.props.contests.map(contest =>
-                <ContestPreview {...contest} /> 
+                {this.state.contests.map(contest =>
+                <ContestPreview key={contest.id} {...contest} /> 
                 )}
             </div>
             </div>

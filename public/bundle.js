@@ -11949,6 +11949,8 @@
 	
 	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	            pageHeader: 'Naming Contests'
+	            // componentDidMount
+	            // componentWillUnmount
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 	    // constructor(props){

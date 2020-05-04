@@ -63,7 +63,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
+	_reactDom2.default.render(_react2.default.createElement(_App2.default, { initialContests: window.initialData.contests }), document.getElementById('root'));
 
 /***/ }),
 /* 1 */
@@ -10957,7 +10957,7 @@
 	
 	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	            pageHeader: 'Naming Contests',
-	            contests: []
+	            contests: _this.props.initialContests
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 	    // constructor(props){

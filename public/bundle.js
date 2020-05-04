@@ -10921,11 +10921,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ContestPreview = __webpack_require__(/*! ./ContestPreview */ 26);
+	var _ContestPreview = __webpack_require__(/*! ./ContestPreview */ 25);
 	
 	var _ContestPreview2 = _interopRequireDefault(_ContestPreview);
 	
-	var _testData = __webpack_require__(/*! ../testData.json */ 25);
+	var _testData = __webpack_require__(/*! ../testData.json */ 26);
 	
 	var _testData2 = _interopRequireDefault(_testData);
 	
@@ -12013,15 +12013,6 @@
 
 /***/ }),
 /* 25 */
-/*!***************************!*\
-  !*** ./src/testData.json ***!
-  \***************************/
-/***/ (function(module, exports) {
-
-	module.exports = {"contests":[{"id":1,"categoryName":"Business/Company","contestName":"Cognitive Building Bricks"},{"id":2,"categoryName":"Magazine/Newsletter","contestName":"Educating people about sustainable food production"},{"id":3,"categoryName":"Software Component","contestName":"Big Data Analytics for Cash Circulation"},{"id":4,"categoryName":"Website","contestName":"Free programming books"}]}
-
-/***/ }),
-/* 26 */
 /*!******************************************!*\
   !*** ./src/components/ContestPreview.js ***!
   \******************************************/
@@ -12057,6 +12048,15 @@
 	};
 	
 	exports.default = ContestPreview;
+
+/***/ }),
+/* 26 */
+/*!***************************!*\
+  !*** ./src/testData.json ***!
+  \***************************/
+/***/ (function(module, exports) {
+
+	module.exports = {"contests":[{"id":1,"categoryName":"Business/Company","contestName":"Cognitive Building Bricks"},{"id":2,"categoryName":"Magazine/Newsletter","contestName":"Educating people about sustainable food production"},{"id":3,"categoryName":"Software Component","contestName":"Big Data Analytics for Cash Circulation"},{"id":4,"categoryName":"Website","contestName":"Free programming books"}]}
 
 /***/ }),
 /* 27 */

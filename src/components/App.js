@@ -4,6 +4,10 @@ import data from '../testData.json'
 import axios from 'axios';
 import ContestList from '../components/ContestList'
 
+
+const pushState = (obj,url) => {
+    window.history.pushState(obj,"",url);
+} ;
 class App extends React.Component{
     // constructor(props){
     //     super(props);
@@ -27,12 +31,20 @@ class App extends React.Component{
     }
     // componentWillUnmount
 
+    fetchContest = (contestId)=>{
+        pushState(
+            {currentContestId: contestId},
+            `/contests/${contestId}`
+        );
+    };
     render(){
 
         return(
             <div className="App">
             <Header msg={this.state.pageHeader} />
-            <ContestList contests = {this.state.contests} />
+            <ContestList
+            onContestClick = {this.fetchContest}
+             contests = {this.state.contests} />
             </div>
         );
     }

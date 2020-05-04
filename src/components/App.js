@@ -1,8 +1,8 @@
 import Header from "./Header";
 import React from 'react';
-import ContestPreview from './ContestPreview';
 import data from '../testData.json'
 import axios from 'axios';
+import ContestList from '../components/ContestList'
 
 class App extends React.Component{
     // constructor(props){
@@ -32,11 +32,7 @@ class App extends React.Component{
         return(
             <div className="App">
             <Header msg={this.state.pageHeader} />
-            <div>
-                {this.state.contests.map(contest =>
-                <ContestPreview key={contest.id} {...contest} /> 
-                )}
-            </div>
+            <ContestList contests = {this.state.contests} />
             </div>
         );
     }

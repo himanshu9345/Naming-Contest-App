@@ -63,7 +63,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_reactDom2.default.render(_react2.default.createElement(_App2.default, { initialContests: window.initialData.contests }), document.getElementById('root'));
+	_reactDom2.default.render(_react2.default.createElement(_App2.default, { initialData: window.initialData }), document.getElementById('root'));
 
 /***/ }),
 /* 1 */
@@ -10909,6 +10909,8 @@
 	    value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _Header = __webpack_require__(/*! ./Header */ 18);
@@ -10935,13 +10937,27 @@
 	
 	var _Contest2 = _interopRequireDefault(_Contest);
 	
+	var _api = __webpack_require__(/*! ../api */ 59);
+	
+	var api = _interopRequireWildcard(_api);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 19);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	;
 	
 	var pushState = function pushState(obj, url) {
 	    window.history.pushState(obj, "", url);
@@ -10961,15 +10977,16 @@
 	            args[_key] = arguments[_key];
 	        }
 	
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-	            pageHeader: 'Naming Contests',
-	            contests: _this.props.initialContests
-	        }, _this.fetchContest = function (contestId) {
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = _this.props.initialData, _this.fetchContest = function (contestId) {
 	            pushState({ currentContestId: contestId }, '/contests/' + contestId);
 	            //lookup the contest
-	            _this.setState({
-	                pageHeader: _this.state.contests[contestId].contestName,
-	                currentContestId: contestId
+	            api.fetchContest(contestId).then(function (contest) {
+	                _this.setState({
+	                    pageHeader: contest.contestName,
+	                    currentContestId: contest.id,
+	                    contests: _extends({}, _this.state.contests, _defineProperty({}, contest.id, contest))
+	
+	                });
 	            });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
@@ -10995,10 +11012,23 @@
 	        // componentWillUnmount
 	
 	    }, {
+	        key: 'currentContest',
+	        value: function currentContest() {
+	            return this.state.contests[this.state.currentContestId];
+	        }
+	    }, {
+	        key: 'pageHeader',
+	        value: function pageHeader() {
+	            if (this.state.currentContestId) {
+	                return this.currentContest().contestName;
+	            }
+	            return 'Naming Contests';
+	        }
+	    }, {
 	        key: 'currentContent',
 	        value: function currentContent() {
 	            if (this.state.currentContestId) {
-	                return _react2.default.createElement(_Contest2.default, this.state.contests[this.state.currentContestId]);
+	                return _react2.default.createElement(_Contest2.default, this.currentContest());
 	            }
 	            return _react2.default.createElement(_ContestList2.default, {
 	                onContestClick: this.fetchContest,
@@ -11011,7 +11041,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'App' },
-	                _react2.default.createElement(_Header2.default, { msg: this.state.pageHeader }),
+	                _react2.default.createElement(_Header2.default, { msg: this.pageHeader() }),
 	                this.currentContent()
 	            );
 	        }
@@ -11020,6 +11050,9 @@
 	    return App;
 	}(_react2.default.Component);
 	
+	App.propTypes = {
+	    initialData: _propTypes2.default.object.isRequired
+	};
 	exports.default = App;
 
 /***/ }),
@@ -13874,7 +13907,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'Contest' },
-	                this.props.id
+	                this.props.description
 	            );
 	        }
 	    }]);
@@ -13883,10 +13916,36 @@
 	}(_react.Component);
 	
 	Contest.propTypes = {
-	    id: _propTypes2.default.number.isRequired
+	    description: _propTypes2.default.string.isRequired
 	};
 	
 	exports.default = Contest;
+
+/***/ }),
+/* 59 */
+/*!********************!*\
+  !*** ./src/api.js ***!
+  \********************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.fetchContest = undefined;
+	
+	var _axios = __webpack_require__(/*! axios */ 27);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var fetchContest = exports.fetchContest = function fetchContest(contestId) {
+	    return _axios2.default.get('/api/contests/' + contestId).then(function (resp) {
+	        return resp.data;
+	    });
+	}; //to fetch api results from api
 
 /***/ })
 /******/ ]);

@@ -7,9 +7,14 @@ const router = express.Router();
 //         name:"Himanshu"
 //     });
 // });
+
+const contests = data.contests.reduce((obj,contest)=>{
+    obj[contest.id]=contest
+    return obj;
+},{})
 router.get("/contests",(req,res)=>{
         res.send({
-           contests: data.contests
+           contests: contests
         });
     });
 

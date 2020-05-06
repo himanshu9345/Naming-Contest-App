@@ -5,12 +5,17 @@ import axios from 'axios';
 import ContestList from '../components/ContestList'
 import Contest from '../components/Contest'
 import * as api from '../api';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 ;
 
 const pushState = (obj,url) => {
     window.history.pushState(obj,"",url);
 } ;
+
+
+const onPopState = handler => {
+    window.onpopstate=handler;
+};
 class App extends React.Component{
     // constructor(props){
     //     super(props);
@@ -21,18 +26,25 @@ class App extends React.Component{
     }
     state = this.props.initialData;
     componentDidMount(){
-        //do ajax call
-        axios.get('/api/contests')
-            .then(resp => {
-                // console.log(resp.data.contests);
-                this.setState({
-                    contests: resp.data.contests
-                });
+        onPopState((event)=>{
+            this.setState({
+                currentContestId: (event.state || {}).currentContestId
             })
-            .catch(console.error)
+        })
+        //do ajax call
+        // axios.get('/api/contests')
+        //     .then(resp => {
+        //         // console.log(resp.data.contests);
+        //         this.setState({
+        //             contests: resp.data.contests
+        //         });
+        //     })
+        //     .catch(console.error)
        
     }
-    // componentWillUnmount
+    componentWillUnmount(){
+        onPopState(null);
+    }
 
     fetchContest = (contestId)=>{
         pushState(
@@ -54,6 +66,23 @@ class App extends React.Component{
         
     };
 
+    fetchContestList = ()=>{
+        pushState(
+            {currentContestId: null},
+            `/`
+        );
+        //lookup the contest
+        api.fetchContestList().then(contests=>{
+            this.setState({
+                currentContestId: null,
+                contests
+
+            });
+        });
+        
+    };
+
+
     currentContest(){
         return this.state.contests[this.state.currentContestId];
     }
@@ -66,11 +95,11 @@ class App extends React.Component{
     }
     currentContent(){
         if (this.state.currentContestId){
-            return <Contest {...this.currentContest()} />
+            return <Contest contestListClick={this.fetchContestList} {...this.currentContest()} />
         }
         return <ContestList
         onContestClick = {this.fetchContest}
-         contests = {this.state.contests} />
+        contests = {this.state.contests} />
     }
     render(){
 

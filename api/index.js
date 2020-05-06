@@ -1,29 +1,37 @@
 import express from "express";
-import data from "../src/testData.json"
+import {MongoClient} from 'mongodb'
+import assert from 'assert';
+import config from '../config';
+
+//mongo connected obj for external use
+let mdb;
+MongoClient.connect(config.mongodbUri,(err,db)=>{
+    assert.equal(null,err);
+    mdb = db.db(config.mongodbDB);
+    
+})
+
 const router = express.Router();
 
-// router.get("/contests",(req,res)=>{
-//     res.render('index',{
-//         name:"Himanshu"
-//     });
-// });
-
-const contests = data.contests.reduce((obj,contest)=>{
-    obj[contest.id]=contest
-    return obj;
-},{})
-
 router.get("/contests",(req,res)=>{
-        res.send({
-           contests: contests
-        });
+    let contests = {}
+    mdb.collection('contests').find({})
+        .each((err,contest)=>{
+            assert.equal(null,err);
+            
+            if (!contest){//when all contests are read
+                res.send({contests});
+                return;
+            }
+            contests[contest.id]=contest;
+        })
 });
 
 router.get("/contest/:contestId",(req,res)=>{
-    let contest= contests[req.params.contestId];
-    contest.description="gggggg";
-    res.send(contest);
-
+    mdb.collection('contests')
+        .findOne({id: Number(req.params.contestId)})
+        .then(contest => res.send(contest))
+        .catch(console.error);
 });
 
 export default router;

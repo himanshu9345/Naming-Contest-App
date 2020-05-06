@@ -1,7 +1,5 @@
 import Header from "./Header";
 import React from 'react';
-import data from '../testData.json'
-import axios from 'axios';
 import ContestList from '../components/ContestList'
 import Contest from '../components/Contest'
 import * as api from '../api';

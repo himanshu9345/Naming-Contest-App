@@ -19,7 +19,7 @@ router.get("/contests",(req,res)=>{
         });
 });
 
-router.get("/contests/:contestId",(req,res)=>{
+router.get("/contest/:contestId",(req,res)=>{
     let contest= contests[req.params.contestId];
     contest.description="gggggg"
     res.send(contest);

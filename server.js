@@ -20,7 +20,10 @@ server.get(['/','/contest/:contestId'], (req, res) => {
         initialMarkup,initialData
       })}
     )
-    .catch(console.error)
+    .catch(error=>{
+      console.error(error)
+      res.send(error.status(404).send("Bad Request"))
+    })
   
 });
 

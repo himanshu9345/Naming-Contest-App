@@ -25,8 +25,6 @@ class App extends React.Component{
             this.setState({
                 currentContestId: (event.state || {}).currentContestId
             })
-        console.log((event.state || {}).currentContestId)
-        console.log("did mount")
 
 
         })
@@ -44,10 +42,10 @@ class App extends React.Component{
         //lookup the contest
         api.fetchContest(contestId).then(contest=>{
             this.setState({
-                currentContestId: contest.id,
+                currentContestId: contest._id,
                 contests: {
                     ...this.state.contests,
-                    [contest.id]: contest
+                    [contest._id]: contest
                 }
 
             });
@@ -103,9 +101,7 @@ class App extends React.Component{
         return 'Naming Contests';
     }
     currentContent(){
-        console.log(this.state.currentContestId)
         if (this.state.currentContestId){
-        console.log("ggg")
             return <Contest 
             contestListClick={this.fetchContestList} 
             fetchNames={this.fetchNames} 

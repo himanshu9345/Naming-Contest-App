@@ -14,14 +14,14 @@ const getApiUrl = (contestId) =>{
     return `${config.serverUrl}/api/contests`
 }
 
-
+//return data for single contest
 const getInitialData = (contestId,apiData)=>{
     
     if(contestId){
         return {
-            currentContestId: apiData.id,
+            currentContestId: apiData._id,
             contests: {
-                [apiData.id]: apiData
+                [apiData._id]: apiData
             }
         };
     }

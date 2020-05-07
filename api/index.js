@@ -32,6 +32,7 @@ router.get("/contests",(req,res)=>{
 });
 
 router.get("/contest/:contestId",(req,res)=>{
+    // console.log("from contest")
     mdb.collection('contests')
         .findOne({_id: ObjectID(req.params.contestId)})
         .then(contest => res.send(contest))
@@ -85,7 +86,7 @@ router.post('/names',(req,res)=>{
        ).then(doc=>
            res.send({
                
-               updatedContest: doc,
+               updatedContest: doc.value,
                newName: {
                    _id: result.insertedId,
                    name

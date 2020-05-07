@@ -24,7 +24,7 @@ server.get(['/','/contest/:contestId'], (req, res) => {
       })}
     )
     .catch(error=>{
-      // console.error(error);
+      console.error(error);
       res.status(404).send("Bad Request");
     })
   

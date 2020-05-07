@@ -4,8 +4,11 @@ import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import serverRender from './serverRender';
 import express from 'express';
+import bodyParser from 'body-parser';
+
 const server = express();
 
+server.use(bodyParser.json());
 server.use(sassMiddleware({
   src: path.join(__dirname,'sass'),
   dest: path.join(__dirname,'public'),
@@ -21,8 +24,8 @@ server.get(['/','/contest/:contestId'], (req, res) => {
       })}
     )
     .catch(error=>{
-      console.error(error)
-      res.send(error.status(404).send("Bad Request"))
+      // console.error(error);
+      res.status(404).send("Bad Request");
     })
   
 });

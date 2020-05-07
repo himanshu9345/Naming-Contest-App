@@ -15,10 +15,7 @@ const onPopState = handler => {
     window.onpopstate=handler;
 };
 class App extends React.Component{
-    // constructor(props){
-    //     super(props);
-    //     this.state={test:45}
-    // }
+
     static propTypes ={
         initialData: PropTypes.object.isRequired
     }
@@ -28,16 +25,11 @@ class App extends React.Component{
             this.setState({
                 currentContestId: (event.state || {}).currentContestId
             })
+        console.log((event.state || {}).currentContestId)
+        console.log("did mount")
+
+
         })
-        //do ajax call
-        // axios.get('/api/contests')
-        //     .then(resp => {
-        //         // console.log(resp.data.contests);
-        //         this.setState({
-        //             contests: resp.data.contests
-        //         });
-        //     })
-        //     .catch(console.error)
        
     }
     componentWillUnmount(){
@@ -52,7 +44,6 @@ class App extends React.Component{
         //lookup the contest
         api.fetchContest(contestId).then(contest=>{
             this.setState({
-                pageHeader: contest.contestName,
                 currentContestId: contest.id,
                 contests: {
                     ...this.state.contests,
@@ -80,6 +71,26 @@ class App extends React.Component{
         
     };
 
+    fetchNames = (nameIds) => {
+        if (nameIds.length===0){
+            return
+        }
+        api.fetchNames(nameIds).then(names=>{
+            this.setState({
+                names
+            })
+        })
+    }
+
+    lookupName = (nameId) => {
+        if (!this.state.names||!this.state.names[nameId]){
+            return {
+                name: '....'
+            };
+        }
+
+        return this.state.names[nameId];
+    }
 
     currentContest(){
         return this.state.contests[this.state.currentContestId];
@@ -92,8 +103,14 @@ class App extends React.Component{
         return 'Naming Contests';
     }
     currentContent(){
+        console.log(this.state.currentContestId)
         if (this.state.currentContestId){
-            return <Contest contestListClick={this.fetchContestList} {...this.currentContest()} />
+        console.log("ggg")
+            return <Contest 
+            contestListClick={this.fetchContestList} 
+            fetchNames={this.fetchNames} 
+            lookupName = {this.lookupName}
+            {...this.currentContest()} />
         }
         return <ContestList
         onContestClick = {this.fetchContest}

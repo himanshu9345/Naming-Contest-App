@@ -33,6 +33,7 @@ router.get("/contests",(req,res)=>{
 });
 
 router.get("/contest/:contestId",(req,res)=>{
+    console.log("ggg")
     mdb.collection('contests')
         .findOne({id: Number(req.params.contestId)})
         .then(contest => res.send(contest))

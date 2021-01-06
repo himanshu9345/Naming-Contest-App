@@ -20,7 +20,7 @@
   "homepage": "https://github.com/himanshu9345/Naming-Contest-App#readme",
   "dependencies": {
     "@babel/preset-env": "^7.9.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
     "json-loader": "^0.5.7",
